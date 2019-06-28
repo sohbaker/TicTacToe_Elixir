@@ -15,19 +15,6 @@ defmodule DisplayTest do
     assert Display.notify_invalid() == "Invalid move. Please try again"
   end
 
-#  test "shows the board" do
-#    width = length(Board.grid())
-#    rows = Board.grid_rows()
-#    assert Display.show_board(rows, width) == """
-#1 | 2 | 3
-#---------
-#4 | 5 | 6
-#---------
-#7 | 8 | 9
-#
-#"""
-#  end
-
   test "shows the board" do
     grid = Board.grid()
     assert Display.show_board(grid) == """
