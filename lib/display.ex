@@ -35,4 +35,8 @@ defmodule Display do
   def announce_win(mark) do 
     "Player #{mark} wins!"
   end
+  
+  def announce_tie do
+   "It's a tie!"
+  end
 end 

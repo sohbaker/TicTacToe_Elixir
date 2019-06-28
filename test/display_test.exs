@@ -29,4 +29,8 @@ defmodule DisplayTest do
   test "announces a winner" do 
     assert Display.announce_win("X") == "Player X wins!"
   end
+
+  test "announces a tie" do 
+    assert Display.announce_tie == "It's a tie!"
+  end
 end
