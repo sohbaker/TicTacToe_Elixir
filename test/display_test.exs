@@ -25,4 +25,8 @@ defmodule DisplayTest do
 7 | 8 | 9
 """
   end
+
+  test "announces a winner" do 
+    assert Display.announce_win("X") == "Player X wins!"
+  end
 end

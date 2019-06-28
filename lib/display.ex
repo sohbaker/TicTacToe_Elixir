@@ -26,9 +26,13 @@ defmodule Display do
   def clean_up_board(grid, n, line_separator) when n > 0 do
     first_two_items  = Enum.take(grid, n - 1)   
     last_item  = Enum.map(Enum.take(grid, -1), fn x -> String.replace(x, " | ", "\n") end)
-    remaining_items = Enum.drop(grid, n - 1)
-    remaining_items = Enum.drop(grid, -1)     
-    body = Enum.map_every(remaining_items, n, fn x -> String.replace(x, " | ", "\n#{line_separator}\n") end)
+    grid = Enum.drop(grid, n - 1)
+    grid = Enum.drop(grid, -1)     
+    body = Enum.map_every(grid, n, fn x -> String.replace(x, " | ", "\n#{line_separator}\n") end)
     first_two_items ++ body ++ last_item  
+  end
+  
+  def announce_win(mark) do 
+    "Player #{mark} wins!"
   end
 end 
