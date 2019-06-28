@@ -11,4 +11,8 @@ defmodule DisplayTest do
     mark = "X"
     assert Display.prompt_player(mark) == "Make a move: X" 
   end
+
+  test "notifies a player of an invalid move" do 
+    assert Display.notify_invalid() == "Invalid move. Please try again"
+  end
 end
