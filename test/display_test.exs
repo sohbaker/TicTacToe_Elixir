@@ -1,7 +1,6 @@
 defmodule DisplayTest do
   use ExUnit.Case
   doctest Display 
-  import Board
 
   test "prints a greeting" do
     assert Display.greeting() == "Welcome to Tic Tac Toe!"
@@ -14,5 +13,29 @@ defmodule DisplayTest do
 
   test "notifies a player of an invalid move" do 
     assert Display.notify_invalid() == "Invalid move. Please try again"
+  end
+
+#  test "shows the board" do
+#    width = length(Board.grid())
+#    rows = Board.grid_rows()
+#    assert Display.show_board(rows, width) == """
+#1 | 2 | 3
+#---------
+#4 | 5 | 6
+#---------
+#7 | 8 | 9
+#
+#"""
+#  end
+
+  test "shows the board" do
+    grid = Board.grid()
+    assert Display.show_board(grid) == """
+1 | 2 | 3
+---------
+4 | 5 | 6
+---------
+7 | 8 | 9
+"""
   end
 end

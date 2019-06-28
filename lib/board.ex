@@ -53,4 +53,8 @@ defmodule Board do
   def tie?(board, mark_one, mark_two) do 
     full?(board, mark_one, mark_two) == true && win?(board, mark_one) == false && win?(board, mark_two) == false
   end
+
+  def grid_rows do 
+    Enum.chunk_every(grid(), 3)
+  end
 end
