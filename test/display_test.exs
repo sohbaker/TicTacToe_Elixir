@@ -1,6 +1,7 @@
 defmodule DisplayTest do
   use ExUnit.Case
   doctest Display 
+  import ExUnit.CaptureIO
 
   test "prints a greeting" do
     assert Display.greeting() == "Welcome to Tic Tac Toe!"
@@ -17,6 +18,7 @@ defmodule DisplayTest do
 
   test "shows the board" do
     grid = Board.grid()
+    IO.puts(Display.show_board(grid))
     assert Display.show_board(grid) == """
 1 | 2 | 3
 ---------
@@ -32,5 +34,12 @@ defmodule DisplayTest do
 
   test "announces a tie" do 
     assert Display.announce_tie == "It's a tie!"
+  end
+
+  test "takes an input from a user" do 
+    prompt = "Make a move: X\n "
+    assert capture_io("1", fn ->
+      IO.write Display.get_input(prompt) 
+    end) == "Make a move: X\n 1"
   end
 end

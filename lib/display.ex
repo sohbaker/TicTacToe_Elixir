@@ -39,4 +39,10 @@ defmodule Display do
   def announce_tie do
    "It's a tie!"
   end
+
+  def get_input(prompt) do 
+    IO.gets(prompt)
+    |> String.trim
+    |> String.to_integer  
+  end
 end 
