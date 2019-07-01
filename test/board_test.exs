@@ -103,9 +103,4 @@ defmodule BoardTest do
     board = Board.mark_board(board, 7, mark_one)
     assert Board.tie?(board, mark_one, mark_two) == true
   end
-
-  test "returns the rows for the board" do 
-    board = Board.grid()
-    assert Board.grid_rows() == [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
-  end
 end
