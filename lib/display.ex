@@ -1,14 +1,14 @@
 defmodule Display do 
   def greeting do 
-    "Welcome to Tic Tac Toe!\n"
+    "Welcome to Tic Tac Toe!"
   end
   
   def prompt_player(mark) do
-    "Make a move: #{mark}\n" 
+    "Make a move: #{mark}" 
   end
 
   def notify_invalid do 
-    "Invalid move. Please try again\n"
+    "Invalid move. Please try again"
   end
 
   def show_board(grid) do
@@ -18,17 +18,21 @@ defmodule Display do
   end
   
   def announce_win(mark) do 
-    "Player #{mark} wins!\n"
+    "Player #{mark} wins!"
   end
   
   def announce_tie do
-   "It's a tie!\n"
+   "It's a tie!"
   end
 
   def get_input(prompt) do 
     IO.gets(prompt)
     |> String.trim
     |> String.to_integer  
+  end
+ 
+  def print_to_screen(string) do 
+   IO.puts(string)
   end
 
   defp format_board(grid) do  
