@@ -28,7 +28,6 @@ defmodule Display do
   def get_input(prompt) do 
     IO.gets(prompt)
     |> String.trim
-    |> String.to_integer  
   end
  
   def print_to_screen(string) do 
