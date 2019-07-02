@@ -12,4 +12,9 @@ defmodule Human do
   def get_mark(human) do 
     human.mark
   end
+
+  def get_move(human) do 
+    Display.get_input(Display.prompt_player(human.mark))
+    |> String.to_integer
+  end
 end
