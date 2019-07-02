@@ -1,8 +1,8 @@
 defmodule Human do 
-  defstruct mark: nil
+  defstruct mark: "X"
 
-  def new() do 
-    %Human{}
+  def new(mark \\ "X") do 
+    %Human{mark: mark}
   end
 
   def add_mark(human, mark) do
