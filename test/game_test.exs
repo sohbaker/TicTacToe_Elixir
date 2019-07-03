@@ -12,7 +12,7 @@ defmodule GameTest do
   end
 
   test "player one makes a move" do
-    player_one = %StubPlayer{mark: "X"}
+    player_one = %StubPlayer{mark: "X", moves: [1]}
     player_two = %StubPlayer{mark: "O"}
 
     %Game{board: board, current_player: current} =
@@ -21,5 +21,18 @@ defmodule GameTest do
 
     assert ["X", "2", "3", "4", "5", "6", "7", "8", "9"] == board
     assert %StubPlayer{mark: "O"} == current
+  end
+
+  test "player two makes a move" do
+    player_one = %StubPlayer{mark: "X", moves: [1]}
+    player_two = %StubPlayer{mark: "O", moves: [2]}
+
+    %Game{board: board, current_player: current} =
+      Game.new(player_one, player_two)
+      |> Game.start()
+      |> Game.play_turn()
+
+    assert ["X", "O", "3", "4", "5", "6", "7", "8", "9"] == board
+    assert %StubPlayer{mark: "X", moves: []} == current
   end
 end

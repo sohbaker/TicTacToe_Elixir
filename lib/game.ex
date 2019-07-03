@@ -13,9 +13,18 @@ defmodule Game do
 
   def start(%Game{board: board, current_player: player} = game) do
     move = Player.get_move(player)
+    updated = Player.update_player(player)
     new_board = Board.mark_board(board, move, player.mark)
     new_player = toggle_player(game, player)
-    %Game{game | board: new_board, current_player: new_player}
+    %Game{game | board: new_board, current_player: new_player, player_one: updated}
+  end
+
+  def play_turn(game) do
+    move = Player.get_move(game.current_player)
+    updated = Player.update_player(game.current_player)
+    new_board = Board.mark_board(game.board, move, game.current_player.mark)
+    new_player = toggle_player(game, game.current_player)
+    %Game{game | board: new_board, current_player: new_player, player_two: updated}
   end
 
   def toggle_player(game, player) do
