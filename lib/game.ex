@@ -1,30 +1,33 @@
 defmodule Game do
-  defstruct [:board, :player_one, :player_two, :current_player]
+  defstruct [:board, :players, :current_player]
 
-  def new(player_one, player_two) do
+  def new(players) do
     game = %Game{
-      player_one: player_one,
-      player_two: player_two,
+      players: players,
       board: Board.grid()
     }
 
-    %Game{game | current_player: game.player_one}
+    %Game{game | current_player: Enum.at(players,0)}
   end
 
   def start(%Game{board: board, current_player: player} = game) do
-    move = Player.get_move(player)
-    updated = Player.update_player(player)
+    [head | tail] = game.players
+    move = Player.get_move(head)
+    updated = Player.update_player(head)
     new_board = Board.mark_board(board, move, player.mark)
-    new_player = toggle_player(game, player)
-    %Game{game | board: new_board, current_player: new_player, player_one: updated}
+    new_players = tail ++ [updated]
+    current = Enum.at(new_players,0)
+    %Game{game | board: new_board, current_player: current, players: new_players}
   end
 
   def play_turn(game) do
-    move = Player.get_move(game.current_player)
-    updated = Player.update_player(game.current_player)
+    [head | tail] = game.players
+    move = Player.get_move(head)
+    updated = Player.update_player(head)
     new_board = Board.mark_board(game.board, move, game.current_player.mark)
-    new_player = toggle_player(game, game.current_player)
-    %Game{game | board: new_board, current_player: new_player, player_two: updated}
+    new_players = tail ++ [updated]
+    current = Enum.at(new_players,0)
+    %Game{game | board: new_board, current_player: current, players: new_players}
   end
 
   def toggle_player(game, player) do
