@@ -1,17 +1,18 @@
-defmodule HumanTest do 
+defmodule HumanTest do
   use ExUnit.Case
-  doctest Human 
+  doctest Human
   import ExUnit.CaptureIO
- 
+
   test "has a mark" do
     human = Human.new("O")
     assert Human.get_mark(human) == "O"
-  end 
+  end
 
-  test "selects a move" do 
+  test "selects a move" do
     human = Human.new()
-    capture_io("2", fn->
+
+    capture_io("2", fn ->
       assert Human.get_move(human) == 2
-    end) 
-  end 
+    end)
+  end
 end
