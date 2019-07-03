@@ -15,11 +15,11 @@ defmodule GameTest do
     player_one = %StubPlayer{mark: "X"}
     player_two = %StubPlayer{mark: "O"}
 
-    %Game{board: b, current_player: c} =
+    %Game{board: board, current_player: current} =
       Game.new(player_one, player_two)
       |> Game.start()
 
-    assert ["X", "2", "3", "4", "5", "6", "7", "8", "9"] == b
-    assert %StubPlayer{mark: "O"} == c
+    assert ["X", "2", "3", "4", "5", "6", "7", "8", "9"] == board
+    assert %StubPlayer{mark: "O"} == current
   end
 end
