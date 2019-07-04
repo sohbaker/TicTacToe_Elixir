@@ -69,6 +69,6 @@ defmodule GameTest do
       |> Game.play_turn()
 
     assert ["X", "X", "X", "O", "O", "6", "7", "8", "9"] == board
-    assert Game.show_outcome(board, [player_one.mark, player_one.mark]) == "win"
+    assert Game.show_outcome(board, [player_one.mark, player_one.mark]) == Display.announce_win(player_one.mark)
   end
 end

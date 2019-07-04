@@ -43,12 +43,11 @@ defmodule Game do
   end
 
   def show_outcome(board, players) do
-    [head, _tail] = Board.win?(board, players)
+    [head, tail] = Board.win?(board, players)
     if head == true do
-      "win"
+      Display.announce_win(tail)
     else
-      IO.puts(head)
-      "tie"
+      Display.announce_tie
     end
   end
 end
