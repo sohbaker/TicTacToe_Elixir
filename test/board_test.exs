@@ -18,7 +18,7 @@ defmodule BoardTest do
     mark_one = "X"
     mark_two = "O"
 
-    assert length(Board.available_moves(updated_board, mark_one, mark_two)) ==
+    assert length(Board.available_moves(updated_board, [mark_one, mark_two])) ==
              length(Board.grid()) - 1
   end
 
@@ -27,7 +27,7 @@ defmodule BoardTest do
     position = 1
     mark_one = "X"
     mark_two = "O"
-    assert Board.valid?(board, position, mark_one, mark_two) == true
+    assert Board.valid?(board, position, [mark_one, mark_two]) == true
   end
 
   test "knows when a move is invalid" do
@@ -36,7 +36,7 @@ defmodule BoardTest do
     mark_one = "X"
     mark_two = "O"
     updated_board = Board.mark_board(board, position, mark_one)
-    assert Board.valid?(updated_board, position, mark_one, mark_two) == false
+    assert Board.valid?(updated_board, position, [mark_one, mark_two]) == false
   end
 
   test "knows when the board is full" do
@@ -52,7 +52,7 @@ defmodule BoardTest do
     board = Board.mark_board(board, 6, mark_one)
     board = Board.mark_board(board, 9, mark_two)
     board = Board.mark_board(board, 7, mark_one)
-    assert Board.full?(board, mark_one, mark_two) == true
+    assert Board.full?(board, [mark_one, mark_two]) == true
   end
 
   test "knows the game can continue as the board is not full" do
@@ -63,7 +63,7 @@ defmodule BoardTest do
     board = Board.mark_board(board, 3, mark_two)
     board = Board.mark_board(board, 6, mark_one)
     board = Board.mark_board(board, 8, mark_two)
-    assert Board.full?(board, mark_one, mark_two) == false
+    assert Board.full?(board, [mark_one, mark_two]) == false
   end
 
   test "knows the when player with mark 'x' has won the game" do
@@ -75,7 +75,8 @@ defmodule BoardTest do
     board = Board.mark_board(board, 4, mark_one)
     board = Board.mark_board(board, 5, mark_two)
     board = Board.mark_board(board, 7, mark_one)
-    assert Board.win?(board, mark_one) == true
+    winner = Board.win?(board, [mark_one, mark_two])
+    assert Enum.at(winner, 0)  == true
   end
 
   test "knows the when player with mark 'o' has won the game" do
@@ -87,7 +88,8 @@ defmodule BoardTest do
     board = Board.mark_board(board, 2, mark_one)
     board = Board.mark_board(board, 7, mark_two)
     board = Board.mark_board(board, 3, mark_one)
-    assert Board.win?(board, mark_one) == true
+    winner = Board.win?(board, [mark_one, mark_two])
+    assert Enum.at(winner, 0)  == true
   end
 
   test "knows when the game has ended with a tie" do
@@ -103,6 +105,6 @@ defmodule BoardTest do
     board = Board.mark_board(board, 6, mark_one)
     board = Board.mark_board(board, 9, mark_two)
     board = Board.mark_board(board, 7, mark_one)
-    assert Board.tie?(board, mark_one, mark_two) == true
+    assert Board.tie?(board, [mark_one, mark_two]) == true
   end
 end
