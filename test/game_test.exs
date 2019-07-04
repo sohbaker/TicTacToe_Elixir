@@ -83,4 +83,25 @@ defmodule GameTest do
     assert ["X", "2", "3", "O", "O", "O","X", "X", "9"] == board
     assert Game.show_outcome(board, [player_one.mark, player_two.mark]) == Display.announce_win(player_two.mark)
   end
+
+  test "knows that the game has ended in a tie" do
+    player_one = %StubPlayer{mark: "X", moves: [1, 2, 6, 7, 8]}
+    player_two = %StubPlayer{mark: "O", moves: [3, 4, 5, 9]}
+    players = [player_one, player_two]
+
+    %Game{board: board} =
+      Game.new(players)
+      |> Game.start()
+      |> Game.play_turn()
+      |> Game.play_turn()
+      |> Game.play_turn()
+      |> Game.play_turn()
+      |> Game.play_turn()
+      |> Game.play_turn()
+      |> Game.play_turn()
+      |> Game.play_turn()
+
+    assert ["X", "X", "O", "O", "O", "X", "X", "X", "O"] == board
+    assert Game.show_outcome(board, [player_one.mark, player_two.mark]) == Display.announce_tie
+  end
 end

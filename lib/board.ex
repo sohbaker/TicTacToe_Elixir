@@ -28,7 +28,7 @@ defmodule Board do
       Enum.member?(second, true) == true ->
         [true] ++ Enum.take(second, -1)
       true ->
-        [false]
+        [false, nil]
     end
   end
 
