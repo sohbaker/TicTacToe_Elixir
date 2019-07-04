@@ -2,50 +2,40 @@ defmodule Game do
   defstruct [:board, :players, :current_player]
 
   def new(players) do
-    game = %Game{
+    %Game{
       players: players,
-      board: Board.grid()
+      board: Board.grid(),
+      current_player: Enum.at(players, 0),
     }
-
-    %Game{game | current_player: Enum.at(players,0)}
   end
 
-  def start(%Game{board: board, current_player: player} = game) do
-    [head | tail] = game.players
-    move = Player.get_move(head)
-    updated = Player.update_player(head)
-    new_board = Board.mark_board(board, move, player.mark)
-    new_players = tail ++ [updated]
-    current = Enum.at(new_players,0)
-    %Game{game | board: new_board, current_player: current, players: new_players}
-  end
-
-  def play_turn(game) do
-    [head | tail] = game.players
-    move = Player.get_move(head)
-    updated = Player.update_player(head)
-    new_board = Board.mark_board(game.board, move, game.current_player.mark)
-    new_players = tail ++ [updated]
-    current = Enum.at(new_players,0)
-    %Game{game | board: new_board, current_player: current, players: new_players}
-  end
-
-  def toggle_player(game, player) do
-    if player.mark == game.player_one.mark do
-      game.player_two
+  def play(game) do
+    [player_one, player_two] = game.players
+    if over?(game.board, [player_one.mark, player_two.mark]) do
+      show_outcome(game.board, [player_one.mark, player_two.mark])
     else
-      game.player_one
+      take_turn(game)
     end
   end
 
-  def over?(game, board) do
-    Board.tie?(board, game.players) || Enum.at(Board.win?(board, game.players), 0)
+  def take_turn(%Game{board: board, current_player: current, players: players} = game) do
+    [head, tail] = players
+    move = Player.get_move(current)
+    updated = Player.update_player(current)
+    new_board = Board.mark_board(board, move, current.mark)
+    new_players = [tail, updated]
+    new_current = Enum.at(new_players, 0)
+    play(%Game{game | board: new_board, current_player: new_current, players: new_players})
+  end
+
+  def over?(board, players) do
+    Board.tie?(board, players) || Enum.at(Board.win?(board, players), 0)
   end
 
   def show_outcome(board, players) do
-    [head, tail] = Board.win?(board, players)
-    if head == true do
-      Display.announce_win(tail)
+    [win, mark] = Board.win?(board, players)
+    if win == true do
+      Display.announce_win(mark)
     else
       Display.announce_tie
     end

@@ -11,8 +11,7 @@ defimpl Player, for: Human do
 end
 
 defimpl Player, for: StubPlayer do
-  def get_move(%StubPlayer{moves: [head | tail]} = player) do
-    %StubPlayer{player | moves: tail}
+  def get_move(%StubPlayer{moves: [head | _tail]}) do
     head
   end
 
