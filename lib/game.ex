@@ -39,7 +39,16 @@ defmodule Game do
   end
 
   def over?(game, board) do
-    Board.tie?(board, game.player_one.mark, game.player_two.mark) ||
-      Board.win?(board, game.player_one.mark) || Board.win?(board, game.player_two.mark)
+    Board.tie?(board, game.players) || Enum.at(Board.win?(board, game.players), 0)
+  end
+
+  def show_outcome(board, players) do
+    [head, _tail] = Board.win?(board, players)
+    if head == true do
+      "win"
+    else
+      IO.puts(head)
+      "tie"
+    end
   end
 end
