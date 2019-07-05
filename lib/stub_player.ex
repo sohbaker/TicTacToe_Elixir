@@ -1,7 +1,7 @@
 defmodule StubPlayer do
   defstruct [:mark, :moves]
 
-  def get_move(%StubPlayer{moves: [head | _tail]}) do
+  def get_move(%StubPlayer{moves: [head | _tail]}, _board) do
     head
   end
 
