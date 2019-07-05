@@ -9,7 +9,7 @@ defmodule DisplayTest do
 
   test "prompts a player to make a move" do
     mark = "X"
-    assert Display.prompt_player(mark) == "Make a move: X"
+    assert Display.prompt_player(mark) == "X, pick a move from 1-9: "
   end
 
   test "notifies a player of an invalid move" do

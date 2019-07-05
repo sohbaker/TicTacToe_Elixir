@@ -4,7 +4,7 @@ defmodule Display do
   end
 
   def prompt_player(mark) do
-    "Make a move: #{mark}"
+    "#{mark}, pick a move from 1-9: "
   end
 
   def notify_invalid do
