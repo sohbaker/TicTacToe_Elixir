@@ -2,16 +2,6 @@ defmodule GameTest do
   use ExUnit.Case
   doctest Game
 
-  test "knows that the game can continue" do
-    player_one = %StubPlayer{mark: "X"}
-    player_two = %StubPlayer{mark: "O"}
-    players = [player_one, player_two]
-    game = Game.new(players)
-    board = Board.grid()
-
-    assert Game.over?(board, game.players) == false
-  end
-
   test "knows that player x wins the game" do
     player_one = %StubPlayer{mark: "X", moves: [1, 2, 3]}
     player_two = %StubPlayer{mark: "O", moves: [4, 5]}

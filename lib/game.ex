@@ -18,21 +18,25 @@ defmodule Game do
     end
   end
 
-  def take_turn(%Game{board: board, current_player: current, players: players} = game) do
-    [head, tail] = players
-    move = Player.get_move(current)
-    updated = Player.update_player(current)
+  defp take_turn(%Game{board: board, current_player: current} = game) do
+    move = Player.get_move(current, board)
     new_board = Board.mark_board(board, move, current.mark)
-    new_players = [tail, updated]
+    new_players = toggle_players(game)
     new_current = Enum.at(new_players, 0)
     play(%Game{game | board: new_board, current_player: new_current, players: new_players})
   end
 
-  def over?(board, players) do
+  defp toggle_players(%Game{current_player: current, players: players}) do
+    [_head, tail] = players
+    updated = Player.update_player(current)
+    [tail, updated]
+  end
+
+  defp over?(board, players) do
     Board.tie?(board, players) || Enum.at(Board.win?(board, players), 0)
   end
 
-  def show_outcome(board, players) do
+  defp show_outcome(board, players) do
     [win, mark] = Board.win?(board, players)
     if win == true do
       Display.announce_win(mark)
