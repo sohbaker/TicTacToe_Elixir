@@ -1,8 +1,9 @@
 defmodule GameLoader do
   def start_game do
-    player_one = %Human{mark: "X"}
+    player_one = %Human{}
     player_two = %Human{mark: "O"}
-    players = [player_one, player_two]
+    Display.greeting |> Display.print_to_screen
+    [player_one, player_two]
               |> Game.new()
               |> Game.play()
   end
