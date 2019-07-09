@@ -1,18 +1,24 @@
-defmodule Tictactoe do
-  @moduledoc """
-  Documentation for Tictactoe.
-  """
+defmodule TicTacToe.CLI do
+  def main(args \\ []) do
+    args |> parse_args |> process
+  end
 
-  @doc """
-  Hello world.
+  def process([]) do 
+    IO.puts "No arguments given"
+  end
 
-  ## Examples
+  def process(options) do 
+    if options[:version] == "hh" do
+      GameLoader.start_game()
+    else 
+      IO.puts "Invalid load argument"
+    end
+  end
 
-      iex> Tictactoe.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  defp parse_args(args) do
+    {options, _, _} = OptionParser.parse(args,
+      switches: [version: :string]
+    )
+    options
   end
 end
