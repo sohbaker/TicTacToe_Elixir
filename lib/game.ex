@@ -19,6 +19,7 @@ defmodule Game do
   end
 
   defp take_turn(%Game{board: board, current_player: current} = game) do
+    Display.show_board(board)
     move = Player.get_move(current, board)
     new_board = Board.mark_board(board, move, current.mark)
     new_players = toggle_players(game)
@@ -39,9 +40,11 @@ defmodule Game do
   defp show_outcome(board, players) do
     [win, mark] = Board.win?(board, players)
     if win == true do
-      Display.announce_win(mark)
+      Display.show_board(board)
+      Display.announce_win(mark) |> Display.print_to_screen
     else
-      Display.announce_tie
+      Display.show_board(board)
+      Display.announce_tie |> Display.print_to_screen
     end
   end
 end
