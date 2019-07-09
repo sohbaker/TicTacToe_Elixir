@@ -1,18 +1,18 @@
 defmodule Game do
-  defstruct [:board, :players, :current_player]
+  defstruct [:board, :player_x, :player_o, :current_player]
 
-  def new(players) do
+  def new(player_x, player_o) do
     %Game{
-      players: players,
+      player_x: player_x,
+      player_o: player_o,
       board: Board.grid(),
-      current_player: Enum.at(players, 0),
+      current_player: player_x,
     }
   end
 
   def play(game) do
-    [player_one, player_two] = game.players
-    if over?(game.board, [player_one.mark, player_two.mark]) do
-      show_outcome(game.board, [player_one.mark, player_two.mark])
+    if over?(game.board, [game.player_x.mark, game.player_o.mark]) do
+      show_outcome(game.board, [game.player_x.mark, game.player_o.mark])
     else
       take_turn(game)
     end
@@ -20,17 +20,24 @@ defmodule Game do
 
   defp take_turn(%Game{board: board, current_player: current} = game) do
     Display.show_board(board)
-    move = Player.get_move(current, board)
-    new_board = Board.mark_board(board, move, current.mark)
-    new_players = toggle_players(game)
-    new_current = Enum.at(new_players, 0)
-    play(%Game{game | board: new_board, current_player: new_current, players: new_players})
+    game = Player.get_move(current, board)
+           |> update_board(game)
+           |> toggle_players()
+    play(game)
   end
 
-  defp toggle_players(%Game{current_player: current, players: players}) do
-    [_head, tail] = players
+  defp update_board(move, %Game{board: board, current_player: current} = game) do
+    new_board = Board.mark_board(board, move, current.mark)
+    %Game{game | board: new_board}
+  end
+
+  defp toggle_players(%Game{current_player: current, player_x: player_x, player_o: player_o} = game) do
     updated = Player.update_player(current)
-    [tail, updated]
+    if updated.mark == player_x.mark do
+      %Game{game | current_player: player_o, player_x: updated}
+    else
+      %Game{game | current_player: player_x, player_o: updated}
+    end
   end
 
   defp over?(board, players) do

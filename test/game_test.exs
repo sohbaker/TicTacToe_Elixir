@@ -4,38 +4,35 @@ defmodule GameTest do
   import ExUnit.CaptureIO
 
   test "knows that player x wins the game" do
-    player_one = %StubPlayer{mark: "X", moves: [1, 2, 3]}
-    player_two = %StubPlayer{mark: "O", moves: [4, 5]}
-    players = [player_one, player_two]
+    player_x = %StubPlayer{mark: "X", moves: [1, 2, 3]}
+    player_o = %StubPlayer{mark: "O", moves: [4, 5]}
 
     outcome = capture_io(fn ->
-      Game.new(players)
+      Game.new(player_x, player_o)
       |> Game.play()
     end)
 
-    assert String.contains?(outcome, Display.announce_win(player_one.mark)) == true
+    assert String.contains?(outcome, Display.announce_win(player_x.mark)) == true
   end
 
   test "knows that player o wins the game" do
-    player_one = %StubPlayer{mark: "X", moves: [1, 7, 8]}
-    player_two = %StubPlayer{mark: "O", moves: [4, 5, 6]}
-    players = [player_one, player_two]
+    player_x = %StubPlayer{mark: "X", moves: [1, 7, 8]}
+    player_o = %StubPlayer{mark: "O", moves: [4, 5, 6]}
 
     outcome = capture_io(fn ->
-      Game.new(players)
+      Game.new(player_x, player_o)
       |> Game.play()
     end)
 
-    assert String.contains?(outcome, Display.announce_win(player_two.mark)) == true
+    assert String.contains?(outcome, Display.announce_win(player_o.mark)) == true
   end
 
   test "knows that the game has ended in a tie" do
-    player_one = %StubPlayer{mark: "X", moves: [1, 2, 6, 7, 8]}
-    player_two = %StubPlayer{mark: "O", moves: [3, 4, 5, 9]}
-    players = [player_one, player_two]
+    player_x = %StubPlayer{mark: "X", moves: [1, 2, 6, 7, 8]}
+    player_o = %StubPlayer{mark: "O", moves: [3, 4, 5, 9]}
 
     outcome = capture_io(fn ->
-      Game.new(players)
+      Game.new(player_x, player_o)
       |> Game.play()
     end)
 
