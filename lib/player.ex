@@ -5,7 +5,6 @@ end
 
 defimpl Player, for: Human do
   def get_move(human, board) do
-    Display.show_board(board) |> Display.print_to_screen
     Display.prompt_player(human.mark) |> Display.get_input
     |> String.to_integer
   end
