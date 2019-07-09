@@ -9,7 +9,7 @@ defmodule DisplayTest do
 
   test "prompts a player to make a move" do
     mark = "X"
-    assert Display.prompt_player(mark) == "Make a move: X"
+    assert Display.prompt_player(mark) == "X, pick a move from 1-9: "
   end
 
   test "notifies a player of an invalid move" do
@@ -19,13 +19,16 @@ defmodule DisplayTest do
   test "shows the board" do
     grid = Board.grid()
 
-    assert Display.show_board(grid) == """
-           1 | 2 | 3
-           ---------
-           4 | 5 | 6
-           ---------
-           7 | 8 | 9
-           """
+    assert capture_io(fn ->
+             Display.show_board(grid)
+           end) == """
+    1 | 2 | 3
+    ---------
+    4 | 5 | 6
+    ---------
+    7 | 8 | 9
+
+    """
   end
 
   test "announces a winner" do
@@ -45,11 +48,10 @@ defmodule DisplayTest do
   end
 
   test "outputs given string to the screen" do
-    grid = Board.grid()
-    printed_board = Display.show_board(grid)
+    string = "Tic Tac Toe"
 
     assert capture_io(fn ->
-             Display.print_to_screen(printed_board)
-           end) == "#{printed_board}\n"
+      Display.print_to_screen(string)
+    end) == "#{string}\n"
   end
 end

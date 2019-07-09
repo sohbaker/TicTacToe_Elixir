@@ -13,7 +13,7 @@ defmodule Tictactoe.MixProject do
   end
 
   def escript do
-    [main_module: CommandLine.CLI]
+    [main_module: TicTacToe.CLI]
   end
 
   # Run "mix help compile.app" to learn about applications.
