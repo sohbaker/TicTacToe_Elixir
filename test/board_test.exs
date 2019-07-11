@@ -3,7 +3,7 @@ defmodule BoardTest do
   doctest Board
 
   test "has a grid" do
-    assert Enum.member?(Board.grid(), "1") == true
+    assert Enum.member?(Board.grid(), 1) == true
     assert length(Board.grid()) == 9
   end
 

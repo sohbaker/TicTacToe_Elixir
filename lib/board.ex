@@ -1,6 +1,6 @@
 defmodule Board do
   def grid do
-    ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
   def mark_board(board, position, mark) do
