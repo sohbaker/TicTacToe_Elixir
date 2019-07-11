@@ -3,7 +3,7 @@ defmodule BoardTest do
   doctest Board
 
   test "has a grid" do
-    assert Enum.member?(Board.grid(), "1") == true
+    assert Enum.member?(Board.grid(), 1) == true
     assert length(Board.grid()) == 9
   end
 
@@ -15,10 +15,8 @@ defmodule BoardTest do
   test "knows the available moves" do
     board = Board.grid()
     updated_board = Board.mark_board(board, 1, "X")
-    mark_one = "X"
-    mark_two = "O"
 
-    assert length(Board.available_moves(updated_board, [mark_one, mark_two])) ==
+    assert length(Board.available_moves(updated_board)) ==
              length(Board.grid()) - 1
   end
 

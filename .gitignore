@@ -22,3 +22,8 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 tictactoe-*.tar
 
+# Ignore escript build file
+tictactoe
+
+# Ignore DS Store
+.DS_Store

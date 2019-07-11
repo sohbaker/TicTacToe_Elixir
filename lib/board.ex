@@ -1,14 +1,14 @@
 defmodule Board do
   def grid do
-    ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
   def mark_board(board, position, mark) do
     List.replace_at(board, position - 1, mark)
   end
 
-  def available_moves(board, [player_one, player_two]) do
-    Enum.filter(board, fn x -> x != player_one && x != player_two end)
+  def available_moves(board) do
+    Enum.filter(board, fn x -> x != Mark.naught && x != Mark.cross end)
   end
 
   def valid?(board, position, [player_one, player_two]) do
