@@ -9,6 +9,7 @@ defmodule BoardTest do
 
   test "marks the grid" do
     board = Board.grid()
+
     assert Enum.member?(Board.mark_board(board, 1, "X"), "X") == true
   end
 
@@ -23,18 +24,17 @@ defmodule BoardTest do
   test "knows when a move is valid" do
     board = Board.grid()
     position = 1
-    mark_one = "X"
-    mark_two = "O"
-    assert Board.valid?(board, position, [mark_one, mark_two]) == true
+
+    assert Board.valid?(board, position) == true
   end
 
   test "knows when a move is invalid" do
     board = Board.grid()
     position = 1
     mark_one = "X"
-    mark_two = "O"
     updated_board = Board.mark_board(board, position, mark_one)
-    assert Board.valid?(updated_board, position, [mark_one, mark_two]) == false
+
+    assert Board.valid?(updated_board, position) == false
   end
 
   test "knows when the board is full" do
@@ -50,7 +50,8 @@ defmodule BoardTest do
     board = Board.mark_board(board, 6, mark_one)
     board = Board.mark_board(board, 9, mark_two)
     board = Board.mark_board(board, 7, mark_one)
-    assert Board.full?(board, [mark_one, mark_two]) == true
+
+    assert Board.full?(board) == true
   end
 
   test "knows the game can continue as the board is not full" do
@@ -61,7 +62,8 @@ defmodule BoardTest do
     board = Board.mark_board(board, 3, mark_two)
     board = Board.mark_board(board, 6, mark_one)
     board = Board.mark_board(board, 8, mark_two)
-    assert Board.full?(board, [mark_one, mark_two]) == false
+
+    assert Board.full?(board) == false
   end
 
   test "knows the when player with mark 'x' has won the game" do
@@ -73,7 +75,8 @@ defmodule BoardTest do
     board = Board.mark_board(board, 4, mark_one)
     board = Board.mark_board(board, 5, mark_two)
     board = Board.mark_board(board, 7, mark_one)
-    winner = Board.win?(board, [mark_one, mark_two])
+    winner = Board.win?(board)
+
     assert Enum.at(winner, 0)  == true
   end
 
@@ -86,7 +89,8 @@ defmodule BoardTest do
     board = Board.mark_board(board, 2, mark_one)
     board = Board.mark_board(board, 7, mark_two)
     board = Board.mark_board(board, 3, mark_one)
-    winner = Board.win?(board, [mark_one, mark_two])
+    winner = Board.win?(board)
+
     assert Enum.at(winner, 0)  == true
   end
 
@@ -103,6 +107,7 @@ defmodule BoardTest do
     board = Board.mark_board(board, 6, mark_one)
     board = Board.mark_board(board, 9, mark_two)
     board = Board.mark_board(board, 7, mark_one)
-    assert Board.tie?(board, [mark_one, mark_two]) == true
+
+    assert Board.tie?(board) == true
   end
 end
