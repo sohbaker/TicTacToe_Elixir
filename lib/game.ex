@@ -15,15 +15,15 @@ defmodule Game do
       show_outcome(game.board)
     else
       take_turn(game)
+      |> play()
     end
   end
 
   defp take_turn(%Game{board: board, current_player: current} = game) do
     Display.show_board(board)
-    game = Player.get_move(current, board)
-           |> update_board(game)
-           |> toggle_players()
-    play(game)
+    Player.get_move(current, board)
+    |> update_board(game)
+    |> toggle_players()
   end
 
   defp update_board(move, %Game{board: board, current_player: current} = game) do
