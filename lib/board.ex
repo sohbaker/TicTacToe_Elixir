@@ -7,8 +7,8 @@ defmodule Board do
     List.replace_at(board, position - 1, mark)
   end
 
-  def available_moves(board, [player_one, player_two]) do
-    Enum.filter(board, fn x -> x != player_one && x != player_two end)
+  def available_moves(board) do
+    Enum.filter(board, fn x -> x != Mark.naught && x != Mark.cross end)
   end
 
   def valid?(board, position, [player_one, player_two]) do
