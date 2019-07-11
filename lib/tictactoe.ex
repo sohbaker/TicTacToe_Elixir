@@ -3,15 +3,15 @@ defmodule TicTacToe.CLI do
     args |> parse_args |> process
   end
 
-  def process([]) do 
+  def process([]) do
     IO.puts "No arguments given"
   end
 
-  def process(options) do 
-    if options[:version] == "hh" do
-      GameLoader.start_game()
-    else 
-      IO.puts "Invalid load argument"
+  def process(options) do
+    case options[:version] do
+      "hh" -> GameLoader.human_human()
+      "hc" -> GameLoader.human_computer()
+      _ -> IO.puts "Invalid load argument"
     end
   end
 
