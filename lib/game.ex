@@ -11,8 +11,8 @@ defmodule Game do
   end
 
   def play(game) do
-    if over?(game.board, [game.player_x.mark, game.player_o.mark]) do
-      show_outcome(game.board, [game.player_x.mark, game.player_o.mark])
+    if over?(game.board) do
+      show_outcome(game.board)
     else
       take_turn(game)
     end
@@ -40,12 +40,12 @@ defmodule Game do
     end
   end
 
-  defp over?(board, players) do
-    Board.tie?(board, players) || Enum.at(Board.win?(board, players), 0)
+  defp over?(board) do
+    Board.tie?(board) || Enum.at(Board.win?(board), 0)
   end
 
-  defp show_outcome(board, players) do
-    [win, mark] = Board.win?(board, players)
+  defp show_outcome(board) do
+    [win, mark] = Board.win?(board)
     if win == true do
       Display.show_board(board)
       Display.announce_win(mark) |> Display.print_to_screen
