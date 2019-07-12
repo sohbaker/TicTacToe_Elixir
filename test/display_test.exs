@@ -4,16 +4,22 @@ defmodule DisplayTest do
   import ExUnit.CaptureIO
 
   test "prints a greeting" do
-    assert Display.greeting() == "Welcome to Tic Tac Toe!"
+    assert capture_io(fn ->
+      Display.greeting()
+    end) == "Welcome to Tic Tac Toe!\n"
   end
 
   test "prompts a player to make a move" do
     mark = "X"
-    assert Display.prompt_player(mark) == "X, pick a move from 1-9: "
+    assert capture_io(fn ->
+      Display.prompt_player(mark)
+    end) == "X, pick a move from 1-9: "
   end
 
   test "notifies a player of an invalid move" do
-    assert Display.notify_invalid() == "Invalid move. Please try again"
+    assert capture_io(fn ->
+      Display.notify_invalid()
+    end) == "Invalid move. Please try again\n"
   end
 
   test "shows the board" do
