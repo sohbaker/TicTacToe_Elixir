@@ -32,11 +32,10 @@ defmodule Game do
   end
 
   defp toggle_players(%Game{current_player: current, player_x: player_x, player_o: player_o} = game) do
-    updated = Player.update_player(current)
-    if updated.mark == player_x.mark do
-      %Game{game | current_player: player_o, player_x: updated}
+    if current.mark == player_x.mark do
+      %Game{game | current_player: player_o, player_x: current}
     else
-      %Game{game | current_player: player_x, player_o: updated}
+      %Game{game | current_player: player_x, player_o: current}
     end
   end
 
