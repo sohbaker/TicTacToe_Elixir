@@ -39,6 +39,13 @@ defmodule BoardTest do
     assert Board.valid?(board, position) == false
   end
 
+  test "knows when a move is invalid because the position number does not exist" do
+    position = 10
+    board = Board.grid()
+
+    assert Board.valid?(board, position) == false
+  end
+
   test "knows when the board is full" do
     mark_one = "X"
     mark_two = "O"
@@ -131,5 +138,4 @@ defmodule BoardTest do
 
     assert Board.valid?(board, position) == false
   end
-
 end
