@@ -1,14 +1,14 @@
 defmodule Display do
   def greeting do
-    "Welcome to Tic Tac Toe!"
+    IO.puts("Welcome to Tic Tac Toe!")
   end
 
   def prompt_player(mark) do
-    "#{mark}, pick a move from 1-9: "
+    IO.write("#{mark}, pick a move from 1-9: ")
   end
 
   def notify_invalid do
-    "Invalid move. Please try again"
+    IO.puts("Invalid move. Please try again")
   end
 
   def show_board(grid) do
@@ -33,8 +33,9 @@ defmodule Display do
   end
 
   defp format_board(grid) do
-    line_separator = String.duplicate("-", length(grid))
     rows = Enum.chunk_every(grid, 3)
+    line_separator = String.duplicate("-", length(grid))
+
     for row <- rows do
       Enum.join(row, " | ")
       |> Kernel.<>("\n")

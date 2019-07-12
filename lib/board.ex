@@ -1,4 +1,7 @@
 defmodule Board do
+  @naught Mark.naught()
+  @cross Mark.cross()
+
   def grid do
     [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
@@ -8,40 +11,43 @@ defmodule Board do
   end
 
   def available_moves(board) do
-    Enum.filter(board, fn x -> x != Mark.naught && x != Mark.cross end)
+    Enum.filter(board, fn x -> x != @naught && x != @cross end)
   end
 
-  def valid?(board, position, [player_one, player_two]) do
-    Enum.at(board, position - 1) != player_one &&
-      Enum.at(board, position - 1) != player_two
+  def valid?(board, position) do
+    Enum.at(board, position - 1) != @naught &&
+      Enum.at(board, position - 1) != @cross
   end
 
-  def full?(board, [player_one, player_two]) do
-    Enum.all?(board, fn x -> x == player_one || x == player_two end)
+  def full?(board) do
+    Enum.all?(board, fn x -> x == @naught || x == @cross end)
   end
 
-  def win?(board, marks) do
-    [first, second] = check_for_win(board, marks)
+  def win?(board) do
+    [player_one_win, player_two_win] = check_for_win(board)
+
     cond do
-      Enum.member?(first, true) == true ->
-        [true] ++  Enum.take(first, -1)
-      Enum.member?(second, true) == true ->
-        [true] ++ Enum.take(second, -1)
+      Enum.member?(player_one_win, true) == true ->
+        [true] ++ Enum.take(player_one_win, -1)
+
+      Enum.member?(player_two_win, true) == true ->
+        [true] ++ Enum.take(player_two_win, -1)
+
       true ->
         [false, nil]
     end
   end
 
-  def check_for_win(board, [player_one, player_two] = _marks) do
-    [check_lines(board, player_one)] ++
-      [check_lines(board, player_two)]
+  def check_for_win(board) do
+    [check_lines(board, @naught)] ++
+      [check_lines(board, @cross)]
   end
 
   def check_lines(board, player_mark) do
     row_win(board, player_mark) ++
       column_win(board, player_mark) ++
-        diagonal_win(board, player_mark) ++
-          [player_mark]
+      diagonal_win(board, player_mark) ++
+      [player_mark]
   end
 
   def row_win(board, player_mark) do
@@ -68,7 +74,7 @@ defmodule Board do
     end
   end
 
-  def tie?(board, marks) do
-    Board.full?(board, marks) == true && Enum.at(Board.win?(board, marks), 0) == false
+  def tie?(board) do
+    Board.full?(board) == true && Enum.at(Board.win?(board), 0) == false
   end
 end

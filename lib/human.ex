@@ -5,13 +5,9 @@ defmodule Human do
     %Human{mark: mark}
   end
 
-  def get_mark(human) do
-    human.mark
-  end
-
-  def get_move(human, board) do
+  def get_move(human, _board) do
     Display.prompt_player(human.mark)
-    |> Display.get_input
-    |> String.to_integer
+    |> Display.get_input()
+    |> String.to_integer()
   end
 end

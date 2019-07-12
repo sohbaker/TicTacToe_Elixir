@@ -3,15 +3,12 @@ defmodule HumanTest do
   doctest Human
   import ExUnit.CaptureIO
 
-  test "has a mark" do
-    human = Human.new("O")
-    assert Human.get_mark(human) == "O"
-  end
-
   test "selects a move" do
     human = Human.new()
     board = Board.grid()
-    capture_io("2", fn ->
+    input = "2"
+
+    capture_io(input, fn ->
       assert Human.get_move(human, board) == 2
     end)
   end
