@@ -6,7 +6,9 @@ defmodule HumanTest do
   test "selects a move" do
     human = Human.new()
     board = Board.grid()
-    capture_io("2", fn ->
+    input = "2"
+
+    capture_io(input, fn ->
       assert Human.get_move(human, board) == 2
     end)
   end

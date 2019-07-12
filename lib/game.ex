@@ -42,10 +42,12 @@ defmodule Game do
     [win, mark] = Board.win?(board)
     if win == true do
       Display.show_board(board)
-      Display.announce_win(mark) |> Display.print_to_screen
+      Display.announce_win(mark) 
+      |> Display.print_to_screen
     else
       Display.show_board(board)
-      Display.announce_tie |> Display.print_to_screen
+      Display.announce_tie 
+      |> Display.print_to_screen
     end
   end
 end
