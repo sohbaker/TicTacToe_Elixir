@@ -15,9 +15,9 @@ defmodule BoardTest do
 
   test "knows the available moves" do
     board = Board.grid()
-    updated_board = Board.mark_board(board, 1, "X")
+            |> Board.mark_board(1, "X")
 
-    assert length(Board.available_moves(updated_board)) ==
+    assert length(Board.available_moves(board)) ==
              length(Board.grid()) - 1
   end
 
@@ -29,84 +29,90 @@ defmodule BoardTest do
   end
 
   test "knows when a move is invalid" do
-    board = Board.grid()
     position = 1
-    mark_one = "X"
-    updated_board = Board.mark_board(board, position, mark_one)
+    board = Board.grid()
+            |> Board.mark_board(position, "X")
 
-    assert Board.valid?(updated_board, position) == false
+    assert Board.valid?(board, position) == false
   end
 
   test "knows when the board is full" do
-    board = Board.grid()
     mark_one = "X"
     mark_two = "O"
-    board = Board.mark_board(board, 1, mark_one)
-    board = Board.mark_board(board, 3, mark_two)
-    board = Board.mark_board(board, 2, mark_one)
-    board = Board.mark_board(board, 4, mark_two)
-    board = Board.mark_board(board, 5, mark_one)
-    board = Board.mark_board(board, 8, mark_two)
-    board = Board.mark_board(board, 6, mark_one)
-    board = Board.mark_board(board, 9, mark_two)
-    board = Board.mark_board(board, 7, mark_one)
+
+    board = Board.grid()
+            |> Board.mark_board(1, mark_one)
+            |> Board.mark_board(3, mark_two)
+            |> Board.mark_board(2, mark_one)
+            |> Board.mark_board(4, mark_two)
+            |> Board.mark_board(5, mark_one)
+            |> Board.mark_board(8, mark_two)
+            |> Board.mark_board(6, mark_one)
+            |> Board.mark_board(9, mark_two)
+            |> Board.mark_board(7, mark_one)
 
     assert Board.full?(board) == true
   end
 
   test "knows the game can continue as the board is not full" do
-    board = Board.grid()
     mark_one = "X"
     mark_two = "O"
-    board = Board.mark_board(board, 1, mark_one)
-    board = Board.mark_board(board, 3, mark_two)
-    board = Board.mark_board(board, 6, mark_one)
-    board = Board.mark_board(board, 8, mark_two)
+
+    board = Board.grid()
+            |> Board.mark_board(1, mark_one)
+            |> Board.mark_board(3, mark_two)
+            |> Board.mark_board(6, mark_one)
+            |> Board.mark_board(8, mark_two)
 
     assert Board.full?(board) == false
   end
 
   test "knows the when player with mark 'x' has won the game" do
-    board = Board.grid()
     mark_one = "X"
     mark_two = "O"
-    board = Board.mark_board(board, 1, mark_one)
-    board = Board.mark_board(board, 2, mark_two)
-    board = Board.mark_board(board, 4, mark_one)
-    board = Board.mark_board(board, 5, mark_two)
-    board = Board.mark_board(board, 7, mark_one)
+
+    board = Board.grid()
+            |> Board.mark_board(1, mark_one)
+            |> Board.mark_board(2, mark_two)
+            |> Board.mark_board(4, mark_one)
+            |> Board.mark_board(5, mark_two)
+            |> Board.mark_board(7, mark_one)
+
     winner = Board.win?(board)
 
     assert Enum.at(winner, 0)  == true
   end
 
   test "knows the when player with mark 'o' has won the game" do
-    board = Board.grid()
     mark_one = "O"
     mark_two = "X"
-    board = Board.mark_board(board, 1, mark_one)
-    board = Board.mark_board(board, 4, mark_two)
-    board = Board.mark_board(board, 2, mark_one)
-    board = Board.mark_board(board, 7, mark_two)
-    board = Board.mark_board(board, 3, mark_one)
+
+    board = Board.grid()
+            |> Board.mark_board(1, mark_one)
+            |> Board.mark_board(4, mark_two)
+            |> Board.mark_board(2, mark_one)
+            |> Board.mark_board(7, mark_two)
+            |> Board.mark_board(3, mark_one)
+
     winner = Board.win?(board)
 
     assert Enum.at(winner, 0)  == true
   end
 
   test "knows when the game has ended with a tie" do
-    board = Board.grid()
     mark_one = "X"
     mark_two = "O"
-    board = Board.mark_board(board, 1, mark_one)
-    board = Board.mark_board(board, 3, mark_two)
-    board = Board.mark_board(board, 2, mark_one)
-    board = Board.mark_board(board, 4, mark_two)
-    board = Board.mark_board(board, 5, mark_one)
-    board = Board.mark_board(board, 8, mark_two)
-    board = Board.mark_board(board, 6, mark_one)
-    board = Board.mark_board(board, 9, mark_two)
-    board = Board.mark_board(board, 7, mark_one)
+
+    board = Board.grid()
+            |> Board.mark_board(1, mark_one)
+            |> Board.mark_board(3, mark_two)
+            |> Board.mark_board(2, mark_one)
+            |> Board.mark_board(4, mark_two)
+            |> Board.mark_board(5, mark_one)
+            |> Board.mark_board(8, mark_two)
+            |> Board.mark_board(6, mark_one)
+            |> Board.mark_board(9, mark_two)
+            |> Board.mark_board(7, mark_one)
 
     assert Board.tie?(board) == true
   end
