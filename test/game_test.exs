@@ -8,10 +8,11 @@ defmodule GameTest do
     player_o = %Human{mark: "O"}
     input = "1\n4\n2\n5\n3\n"
 
-    outcome = capture_io(input, fn ->
-      Game.new(player_x, player_o)
-      |> Game.play()
-    end)
+    outcome =
+      capture_io(input, fn ->
+        Game.new(player_x, player_o)
+        |> Game.play()
+      end)
 
     assert String.contains?(outcome, Display.announce_win(player_x.mark)) == true
   end
@@ -21,10 +22,11 @@ defmodule GameTest do
     player_o = %Human{mark: "O"}
     input = "1\n4\n7\n5\n8\n6\n"
 
-    outcome = capture_io(input, fn ->
-      Game.new(player_x, player_o)
-      |> Game.play()
-    end)
+    outcome =
+      capture_io(input, fn ->
+        Game.new(player_x, player_o)
+        |> Game.play()
+      end)
 
     assert String.contains?(outcome, Display.announce_win(player_o.mark)) == true
   end
@@ -34,11 +36,12 @@ defmodule GameTest do
     player_o = %Human{mark: "O"}
     input = "1\n3\n2\n4\n6\n5\n7\n9\n8\n"
 
-    outcome = capture_io(input, fn ->
-      Game.new(player_x, player_o)
-      |> Game.play()
-    end)
+    outcome =
+      capture_io(input, fn ->
+        Game.new(player_x, player_o)
+        |> Game.play()
+      end)
 
-    assert String.contains?(outcome, Display.announce_tie) == true
+    assert String.contains?(outcome, Display.announce_tie()) == true
   end
 end

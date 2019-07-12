@@ -5,7 +5,7 @@ defmodule Game do
     %Game{
       board: Board.grid(),
       current_player: player_x,
-      other_player: player_o,
+      other_player: player_o
     }
   end
 
@@ -20,6 +20,7 @@ defmodule Game do
 
   defp take_turn(%Game{board: board, current_player: current} = game) do
     Display.show_board(board)
+
     Player.get_move(current, board)
     |> update_board(game)
     |> toggle_players()
@@ -40,14 +41,17 @@ defmodule Game do
 
   defp show_outcome(board) do
     [win, mark] = Board.win?(board)
+
     if win == true do
       Display.show_board(board)
-      Display.announce_win(mark) 
-      |> Display.print_to_screen
+
+      Display.announce_win(mark)
+      |> Display.print_to_screen()
     else
       Display.show_board(board)
-      Display.announce_tie 
-      |> Display.print_to_screen
+
+      Display.announce_tie()
+      |> Display.print_to_screen()
     end
   end
 end

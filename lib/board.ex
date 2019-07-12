@@ -1,7 +1,6 @@
 defmodule Board do
-
-  @naught Mark.naught
-  @cross Mark.cross
+  @naught Mark.naught()
+  @cross Mark.cross()
 
   def grid do
     [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -26,11 +25,14 @@ defmodule Board do
 
   def win?(board) do
     [player_one_win, player_two_win] = check_for_win(board)
+
     cond do
       Enum.member?(player_one_win, true) == true ->
-    [true] ++  Enum.take(player_one_win, -1)
+        [true] ++ Enum.take(player_one_win, -1)
+
       Enum.member?(player_two_win, true) == true ->
         [true] ++ Enum.take(player_two_win, -1)
+
       true ->
         [false, nil]
     end
@@ -44,8 +46,8 @@ defmodule Board do
   def check_lines(board, player_mark) do
     row_win(board, player_mark) ++
       column_win(board, player_mark) ++
-        diagonal_win(board, player_mark) ++
-          [player_mark]
+      diagonal_win(board, player_mark) ++
+      [player_mark]
   end
 
   def row_win(board, player_mark) do

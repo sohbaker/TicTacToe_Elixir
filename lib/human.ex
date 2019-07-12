@@ -7,7 +7,7 @@ defmodule Human do
 
   def get_move(human, _board) do
     Display.prompt_player(human.mark)
-    |> Display.get_input
-    |> String.to_integer
+    |> Display.get_input()
+    |> String.to_integer()
   end
 end
