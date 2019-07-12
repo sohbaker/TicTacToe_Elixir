@@ -22,8 +22,23 @@ defmodule Game do
     Display.show_board(board)
 
     Player.get_move(current, board)
+    |> validate_move(current, board)
     |> update_board(game)
     |> toggle_players()
+  end
+
+  defp validate_move(move, current, board) do
+    if Board.valid?(board, move) == true do
+      move
+    else
+      Display.notify_invalid()
+      get_new_move(current, board)
+    end
+  end
+
+  defp get_new_move(current, board) do
+    Player.get_move(current, board)
+    |> validate_move(current, board)
   end
 
   defp update_board(move, %Game{board: board, current_player: current} = game) do

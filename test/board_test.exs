@@ -29,12 +29,19 @@ defmodule BoardTest do
     assert Board.valid?(board, position) == true
   end
 
-  test "knows when a move is invalid" do
+  test "knows when a move is invalid because the position is taken" do
     position = 1
 
     board =
       Board.grid()
       |> Board.mark_board(position, "X")
+
+    assert Board.valid?(board, position) == false
+  end
+
+  test "knows when a move is invalid because the position number does not exist" do
+    position = 10
+    board = Board.grid()
 
     assert Board.valid?(board, position) == false
   end
@@ -123,5 +130,12 @@ defmodule BoardTest do
       |> Board.mark_board(7, mark_one)
 
     assert Board.tie?(board) == true
+  end
+
+  test "knows when a move is invalid because the position number does not exist" do
+    position = 10
+    board = Board.grid()
+
+    assert Board.valid?(board, position) == false
   end
 end

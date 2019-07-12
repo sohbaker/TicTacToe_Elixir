@@ -15,8 +15,8 @@ defmodule Board do
   end
 
   def valid?(board, position) do
-    Enum.at(board, position - 1) != @naught &&
-      Enum.at(board, position - 1) != @cross
+    empty_space?(board, position) &&
+      single_digit?(board, position)
   end
 
   def full?(board) do
@@ -76,5 +76,14 @@ defmodule Board do
 
   def tie?(board) do
     Board.full?(board) == true && Enum.at(Board.win?(board), 0) == false
+  end
+
+  defp empty_space?(board, position) do
+    Enum.at(board, position - 1) != @naught &&
+      Enum.at(board, position - 1) != @cross
+  end
+
+  defp single_digit?(board, position) do
+    position > 0 && position <= length(board)
   end
 end
