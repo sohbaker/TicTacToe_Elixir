@@ -5,10 +5,6 @@ defmodule Computer do
     %Computer{mark: mark}
   end
 
-  def get_mark(computer) do
-    computer.mark
-  end
-
   def get_move(computer, board) do
     Display.prompt_player(computer.mark)
     :timer.sleep(500)
