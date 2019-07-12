@@ -44,18 +44,4 @@ defmodule GameTest do
 
     assert String.contains?(outcome, Display.announce_tie()) == true
   end
-
-  test "handles an invalid move" do
-    player_x = %Human{}
-    player_o = %Human{mark: "O"}
-    input = "1\n4\n4\n2\n5\n3\n"
-
-    outcome =
-      capture_io(input, fn ->
-        Game.new(player_x, player_o)
-        |> Game.play()
-      end)
-
-    assert String.contains?(outcome, Display.announce_win(player_x.mark)) == true
-  end
 end
