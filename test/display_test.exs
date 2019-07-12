@@ -11,6 +11,7 @@ defmodule DisplayTest do
 
   test "prompts a player to make a move" do
     mark = "X"
+
     assert capture_io(fn ->
       Display.prompt_player(mark)
     end) == "X, pick a move from 1-9: "
