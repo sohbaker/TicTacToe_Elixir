@@ -1,12 +1,11 @@
 defmodule Game do
-  defstruct [:board, :player_x, :player_o, :current_player]
+  defstruct [:board, :current_player, :other_player]
 
   def new(player_x, player_o) do
     %Game{
-      player_x: player_x,
-      player_o: player_o,
       board: Board.grid(),
       current_player: player_x,
+      other_player: player_o,
     }
   end
 
@@ -31,12 +30,8 @@ defmodule Game do
     %Game{game | board: new_board}
   end
 
-  defp toggle_players(%Game{current_player: current, player_x: player_x, player_o: player_o} = game) do
-    if current.mark == player_x.mark do
-      %Game{game | current_player: player_o, player_x: current}
-    else
-      %Game{game | current_player: player_x, player_o: current}
-    end
+  defp toggle_players(%Game{current_player: current, other_player: other} = game) do
+    %Game{game | current_player: other, other_player: current}
   end
 
   defp over?(board) do
