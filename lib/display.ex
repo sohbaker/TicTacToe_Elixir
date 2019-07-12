@@ -33,8 +33,9 @@ defmodule Display do
   end
 
   defp format_board(grid) do
-    line_separator = String.duplicate("-", length(grid))
     rows = Enum.chunk_every(grid, 3)
+    line_separator = String.duplicate("-", length(grid))
+
     for row <- rows do
       Enum.join(row, " | ")
       |> Kernel.<>("\n")
