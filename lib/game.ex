@@ -28,7 +28,7 @@ defmodule Game do
   end
 
   defp validate_move(move, current, board) do
-    if Board.valid?(board, move) == true do
+    if Board.valid?(board, move) do
       move
     else
       Display.notify_invalid()
@@ -52,22 +52,19 @@ defmodule Game do
   end
 
   defp over?(board) do
-    Board.tie?(board) || Enum.at(Board.win?(board), 0)
+    Board.tie?(board) || Board.win?(board)
   end
 
   defp show_outcome(board) do
-    [win, mark] = Board.win?(board)
-
-    if win == true do
-      Display.show_board(board)
-
-      Display.announce_win(mark)
-      |> Display.print_to_screen()
-    else
-      Display.show_board(board)
-
-      Display.announce_tie()
-      |> Display.print_to_screen()
+    Display.show_board(board)
+    cond do
+      Board.win?(board) ->
+        Board.get_winning_mark(board)
+        |> Display.announce_win()
+        |> Display.print_to_screen()
+      Board.tie?(board) ->
+        Display.announce_tie()
+        |> Display.print_to_screen()
     end
   end
 end
