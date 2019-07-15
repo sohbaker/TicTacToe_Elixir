@@ -16,7 +16,7 @@ defmodule Board do
 
   def valid?(board, position) do
     empty_space?(board, position) &&
-      single_digit?(board, position)
+      valid_digit?(board, position)
   end
 
   def full?(board) do
@@ -24,33 +24,35 @@ defmodule Board do
   end
 
   def win?(board) do
-    [player_one_win, player_two_win] = check_for_win(board)
+    check_for_win(board, @naught) || check_for_win(board, @cross)
+  end
 
+  def tie?(board) do
+    Board.full?(board) && !Board.win?(board)
+  end
+
+  def get_winning_mark(board) do
     cond do
-      Enum.member?(player_one_win, true) == true ->
-        [true] ++ Enum.take(player_one_win, -1)
-
-      Enum.member?(player_two_win, true) == true ->
-        [true] ++ Enum.take(player_two_win, -1)
-
+      check_for_win(board, @naught) == true ->
+        @naught
+      check_for_win(board, @cross) == true ->
+        @cross
       true ->
-        [false, nil]
+        nil
     end
   end
 
-  def check_for_win(board) do
-    [check_lines(board, @naught)] ++
-      [check_lines(board, @cross)]
+  defp check_for_win(board, player_mark) do
+    Enum.member?(check_lines(board, player_mark), true)
   end
 
-  def check_lines(board, player_mark) do
+  defp check_lines(board, player_mark) do
     row_win(board, player_mark) ++
       column_win(board, player_mark) ++
-      diagonal_win(board, player_mark) ++
-      [player_mark]
+      diagonal_win(board, player_mark)
   end
 
-  def row_win(board, player_mark) do
+  defp row_win(board, player_mark) do
     rows = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
 
     for row <- rows do
@@ -58,7 +60,7 @@ defmodule Board do
     end
   end
 
-  def column_win(board, player_mark) do
+  defp column_win(board, player_mark) do
     columns = [[0, 3, 6], [1, 4, 7], [2, 5, 8]]
 
     for column <- columns do
@@ -66,7 +68,7 @@ defmodule Board do
     end
   end
 
-  def diagonal_win(board, player_mark) do
+  defp diagonal_win(board, player_mark) do
     diagonals = [[2, 4, 6], [0, 4, 8]]
 
     for diagonal <- diagonals do
@@ -74,16 +76,12 @@ defmodule Board do
     end
   end
 
-  def tie?(board) do
-    Board.full?(board) == true && Enum.at(Board.win?(board), 0) == false
-  end
-
   defp empty_space?(board, position) do
     Enum.at(board, position - 1) != @naught &&
       Enum.at(board, position - 1) != @cross
   end
 
-  defp single_digit?(board, position) do
+  defp valid_digit?(board, position) do
     position > 0 && position <= length(board)
   end
 end

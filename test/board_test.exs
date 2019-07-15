@@ -91,9 +91,9 @@ defmodule BoardTest do
       |> Board.mark_board(5, mark_two)
       |> Board.mark_board(7, mark_one)
 
-    winner = Board.win?(board)
+    winner = Board.get_winning_mark(board)
 
-    assert Enum.at(winner, 0) == true
+    assert winner == "X"
   end
 
   test "knows the when player with mark 'o' has won the game" do
@@ -108,9 +108,9 @@ defmodule BoardTest do
       |> Board.mark_board(7, mark_two)
       |> Board.mark_board(3, mark_one)
 
-    winner = Board.win?(board)
+    winner = Board.get_winning_mark(board)
 
-    assert Enum.at(winner, 0) == true
+    assert winner == "O"
   end
 
   test "knows when the game has ended with a tie" do
@@ -130,12 +130,5 @@ defmodule BoardTest do
       |> Board.mark_board(7, mark_one)
 
     assert Board.tie?(board) == true
-  end
-
-  test "knows when a move is invalid because the position number does not exist" do
-    position = 10
-    board = Board.grid()
-
-    assert Board.valid?(board, position) == false
   end
 end
