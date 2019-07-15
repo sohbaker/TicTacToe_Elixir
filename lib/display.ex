@@ -1,14 +1,14 @@
 defmodule Display do
   def greeting do
-    IO.puts("Welcome to Tic Tac Toe!")
+   "Welcome to Tic Tac Toe!"
   end
 
   def prompt_player(mark) do
-    IO.write("#{mark}, pick a move from 1-9: ")
+    "#{mark}, pick a move from 1-9: "
   end
 
   def notify_invalid do
-    IO.puts("Invalid move. Please try again")
+    "Invalid move. Please try again"
   end
 
   def show_board(grid) do
