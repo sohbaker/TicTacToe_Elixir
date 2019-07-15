@@ -13,6 +13,7 @@ end
 defimpl Player, for: Computer do
   def get_move(computer, board) do
     Display.prompt_player(computer.mark)
+    |> Display.print_to_screen()
     :timer.sleep(500)
 
     Board.available_moves(board)
