@@ -32,6 +32,7 @@ defmodule Game do
       move
     else
       Display.notify_invalid()
+      |> Display.print_to_screen()
       get_new_move(current, board)
     end
   end
