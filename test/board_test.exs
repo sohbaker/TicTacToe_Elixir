@@ -91,9 +91,7 @@ defmodule BoardTest do
       |> Board.mark_board(5, mark_two)
       |> Board.mark_board(7, mark_one)
 
-    winner = Board.get_winning_mark(board)
-
-    assert winner == "X"
+    assert Board.get_winning_mark(board) == "X"
   end
 
   test "knows the when player with mark 'o' has won the game" do
@@ -108,9 +106,7 @@ defmodule BoardTest do
       |> Board.mark_board(7, mark_two)
       |> Board.mark_board(3, mark_one)
 
-    winner = Board.get_winning_mark(board)
-
-    assert winner == "O"
+    assert Board.get_winning_mark(board) == "O"
   end
 
   test "knows when the game has ended with a tie" do
