@@ -21,20 +21,9 @@ defmodule Game do
   defp take_turn(%Game{board: board, current_player: current} = game) do
     Display.show_board(board)
 
-    Player.get_move(current, board)
-    |> validate_move(current, board)
+    get_new_move(current, board)
     |> update_board(game)
     |> toggle_players()
-  end
-
-  defp validate_move(move, current, board) do
-    if Board.valid?(board, move) do
-      move
-    else
-      Display.notify_invalid()
-      |> Display.print_to_screen()
-      get_new_move(current, board)
-    end
   end
 
   defp get_new_move(current, board) do
@@ -45,6 +34,16 @@ defmodule Game do
   defp update_board(move, %Game{board: board, current_player: current} = game) do
     new_board = Board.mark_board(board, move, current.mark)
     %Game{game | board: new_board}
+  end
+
+  defp validate_move(move, current, board) do
+    if Board.valid?(board, move) do
+      move
+    else
+      Display.notify_invalid()
+      |> Display.print_to_screen()
+      get_new_move(current, board)
+    end
   end
 
   defp toggle_players(%Game{current_player: current, other_player: other} = game) do
