@@ -18,7 +18,8 @@ defmodule TicTacToe.MixProject do
 
   def application do
     [
-      extra_applications: [:logger, :plug_cowboy]
+      extra_applications: [:logger, :plug_cowboy],
+      mod: {TicTacToe.Application, []}
     ]
   end
 
