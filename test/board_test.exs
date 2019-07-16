@@ -22,14 +22,14 @@ defmodule BoardTest do
              length(Board.grid()) - 1
   end
 
-  test "knows when a move is valid" do
+  test "knows that a move is valid" do
     board = Board.grid()
     position = 1
 
     assert Board.valid?(board, position) == true
   end
 
-  test "knows when a move is invalid because the position is taken" do
+  test "knows that a move is invalid because the position is taken" do
     position = 1
 
     board =
@@ -39,14 +39,14 @@ defmodule BoardTest do
     assert Board.valid?(board, position) == false
   end
 
-  test "knows when a move is invalid because the position number does not exist" do
+  test "knows that a move is invalid because the position number does not exist" do
     position = 10
     board = Board.grid()
 
     assert Board.valid?(board, position) == false
   end
 
-  test "knows when the board is full" do
+  test "knows that the board is full" do
     mark_one = "X"
     mark_two = "O"
 
@@ -65,7 +65,7 @@ defmodule BoardTest do
     assert Board.full?(board) == true
   end
 
-  test "knows the game can continue as the board is not full" do
+  test "knows that the board is not full" do
     mark_one = "X"
     mark_two = "O"
 
@@ -79,7 +79,7 @@ defmodule BoardTest do
     assert Board.full?(board) == false
   end
 
-  test "knows the when player with mark 'x' has won the game" do
+  test "knows that the player with mark 'x' has won the game" do
     mark_one = "X"
     mark_two = "O"
 
@@ -91,12 +91,10 @@ defmodule BoardTest do
       |> Board.mark_board(5, mark_two)
       |> Board.mark_board(7, mark_one)
 
-    winner = Board.get_winning_mark(board)
-
-    assert winner == "X"
+    assert Board.get_winning_mark(board) == "X"
   end
 
-  test "knows the when player with mark 'o' has won the game" do
+  test "knows that the player with mark 'o' has won the game" do
     mark_one = "O"
     mark_two = "X"
 
@@ -108,12 +106,10 @@ defmodule BoardTest do
       |> Board.mark_board(7, mark_two)
       |> Board.mark_board(3, mark_one)
 
-    winner = Board.get_winning_mark(board)
-
-    assert winner == "O"
+    assert Board.get_winning_mark(board) == "O"
   end
 
-  test "knows when the game has ended with a tie" do
+  test "knows that the game has ended with a tie" do
     mark_one = "X"
     mark_two = "O"
 
