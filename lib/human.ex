@@ -1,7 +1,7 @@
 defmodule Human do
-  defstruct mark: "X"
+  defstruct mark: Mark.cross
 
-  def new(mark \\ "X") do
+  def new(mark \\ Mark.cross) do
     %Human{mark: mark}
   end
 
