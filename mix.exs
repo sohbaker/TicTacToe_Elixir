@@ -1,4 +1,4 @@
-defmodule Tictactoe.MixProject do
+defmodule TicTacToe.MixProject do
   use Mix.Project
 
   def project do
