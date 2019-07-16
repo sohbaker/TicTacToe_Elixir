@@ -1,6 +1,7 @@
 defmodule Board do
   @naught Mark.naught()
   @cross Mark.cross()
+  @winning_lines [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [2, 4, 6], [0, 4, 8]]
 
   def grid do
     [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -47,32 +48,8 @@ defmodule Board do
   end
 
   defp check_lines(board, player_mark) do
-    row_win(board, player_mark) ++
-      column_win(board, player_mark) ++
-      diagonal_win(board, player_mark)
-  end
-
-  defp row_win(board, player_mark) do
-    rows = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
-
-    for row <- rows do
-      Enum.all?(row, fn x -> Enum.at(board, x) == player_mark end)
-    end
-  end
-
-  defp column_win(board, player_mark) do
-    columns = [[0, 3, 6], [1, 4, 7], [2, 5, 8]]
-
-    for column <- columns do
-      Enum.all?(column, fn x -> Enum.at(board, x) == player_mark end)
-    end
-  end
-
-  defp diagonal_win(board, player_mark) do
-    diagonals = [[2, 4, 6], [0, 4, 8]]
-
-    for diagonal <- diagonals do
-      Enum.all?(diagonal, fn x -> Enum.at(board, x) == player_mark end)
+    for winning_line <- @winning_lines do
+      Enum.all?(winning_line, fn x -> Enum.at(board, x) == player_mark end)
     end
   end
 

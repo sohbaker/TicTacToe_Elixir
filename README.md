@@ -1,15 +1,19 @@
-# Tictactoe
-A TicTacToe game built in Elixir to run on the Command Line.
+# TicTacToe
+A TicTacToe application built in Elixir, which allows a user to play the game from 
+the Command Line or a Web Server.
 
-## Installation
-You can clone this repository to your local machine.
+## Getting Started
+Refer to [Installing Elixir](https://elixir-lang.org/install.html) for guidance on 
+installing Elixir on your local machine  
+Useful Resource:- [Elixir Documentation](https://elixir-lang.org/docs.html)
 
-## Task
-- [x] Build a human vs human Tic Tac Toe  
-- [x] Implement a human vs computer version of Tic Tac Toe  
+## Features
+- [x] A human vs human game which runs on the Command Line  
+- [x] A human vs computer game which runs on the Command Line  
+- [] An HTTP client so that the game to be played on a locally hosted web server  
 
-## Running the application
-Once cloned, run the command `mix escript.build`  
+## Running the Application
+Once cloned, run the command `mix escript.build` to build the executable  
 Then call `./tictactoe --version=hh` to load a Human vs Human game  
 Or, call `./tictactoe --version=hc` to load a Human vs Computer game  
 

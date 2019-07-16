@@ -1,13 +1,11 @@
 defmodule Computer do
-  defstruct mark: "O"
+  defstruct mark: Mark.naught
 
-  def new(mark \\ "O") do
+  def new(mark \\ Mark.naught) do
     %Computer{mark: mark}
   end
 
-  def get_move(computer, board) do
-    Display.prompt_player(computer.mark)
-    |> Display.print_to_screen()
+  def get_move(_computer, board) do
     :timer.sleep(500)
 
     Board.available_moves(board)

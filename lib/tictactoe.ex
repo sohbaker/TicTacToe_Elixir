@@ -4,14 +4,14 @@ defmodule TicTacToe.CLI do
   end
 
   def process([]) do
-    IO.puts("No arguments given")
+    Display.print_to_screen("No arguments given")
   end
 
   def process(options) do
     case options[:version] do
       "hh" -> GameLoader.human_human()
       "hc" -> GameLoader.human_computer()
-      _ -> IO.puts("Invalid load argument")
+      _ -> Display.print_to_screen("Invalid load argument")
     end
   end
 
