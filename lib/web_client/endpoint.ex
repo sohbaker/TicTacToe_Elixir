@@ -1,4 +1,4 @@
-defmodule TicTacToe.Endpoint do
+defmodule Web_Client.Endpoint do
   use Plug.Router
 
   plug(Plug.Logger)
@@ -9,11 +9,11 @@ defmodule TicTacToe.Endpoint do
 
   plug(:dispatch)
 
-  get "/ping" do
-    send_resp(conn, 200, "pong!")
+  get "/play" do
+    send_resp(conn, 200, "tictactoe!")
   end
 
-  post "/events" do
+  post "/game" do
     {status, body} =
       case conn.body_params do
         %{"events" => events} -> {200, process_events(events)}
@@ -24,7 +24,7 @@ defmodule TicTacToe.Endpoint do
   end
 
   defp process_events(events) when is_list(events) do
-    Poison.encode(%{response: "Received Events!"})
+    Poison.encode!(%{response: "Received Events!"})
   end
 
   defp process_events(_) do

@@ -1,11 +1,11 @@
-defmodule TicTacToe.Application do
+defmodule Web_Client.Application do
   use Application
 
   def start(_type, _args) do
     children = [
       Plug.Cowboy.child_spec(
         scheme: :http,
-        plug: TicTacToe.Endpoint,
+        plug: Web_Client.Endpoint,
         options: [port: Application.get_env(:tictactoe, :port)]
       )
     ]
