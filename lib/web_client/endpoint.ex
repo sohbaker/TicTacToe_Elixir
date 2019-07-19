@@ -16,14 +16,14 @@ defmodule Web_Client.Endpoint do
   post "/game" do
     {status, body} =
       case conn.body_params do
-        %Game{%Human{}, %Computer{}} -> {200, process_events(events)}
+        %{"events" => events} -> {200, process_events(events)}
         _ -> {422, missing_events()}
       end
 
     send_resp(conn, status, body)
   end
 
-  defp process_events(events) do
+  defp process_events(events) when is_list(events) do
     Poison.encode!(%{response: "Received Events!"})
   end
 
