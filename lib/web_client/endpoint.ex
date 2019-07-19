@@ -1,7 +1,7 @@
 defmodule Web_Client.Endpoint do
   use Plug.Router
 
-  plug(Plug.Logger)
+  plug(Plug.Logger, log: :debug)
 
   plug(:match)
 
@@ -16,14 +16,14 @@ defmodule Web_Client.Endpoint do
   post "/game" do
     {status, body} =
       case conn.body_params do
-        %{"events" => events} -> {200, process_events(events)}
+        %Game{%Human{}, %Computer{}} -> {200, process_events(events)}
         _ -> {422, missing_events()}
       end
 
     send_resp(conn, status, body)
   end
 
-  defp process_events(events) when is_list(events) do
+  defp process_events(events) do
     Poison.encode!(%{response: "Received Events!"})
   end
 
