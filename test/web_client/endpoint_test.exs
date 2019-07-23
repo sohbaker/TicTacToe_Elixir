@@ -1,13 +1,13 @@
-defmodule Web_Client.EndpointTest do
+defmodule WebClient.EndpointTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  @opts Web_Client.Endpoint.init([])
+  @opts WebClient.Endpoint.init([])
 
   test "it returns tictactoe" do
     conn = conn(:get, "/play")
 
-    conn = Web_Client.Endpoint.call(conn, @opts)
+    conn = WebClient.Endpoint.call(conn, @opts)
 
     assert conn.state == :sent
     assert conn.status == 200
@@ -17,7 +17,7 @@ defmodule Web_Client.EndpointTest do
   test "it returns 200 with a valid payload" do
     conn = conn(:post, "/game", %{events: [%{}]})
 
-    conn = Web_Client.Endpoint.call(conn, @opts)
+    conn = WebClient.Endpoint.call(conn, @opts)
 
     assert conn.status == 200
   end
@@ -25,7 +25,7 @@ defmodule Web_Client.EndpointTest do
   test "it returns 422 with an invalid payload" do
     conn = conn(:post, "/game", %{})
 
-    conn = Web_Client.Endpoint.call(conn, @opts)
+    conn = WebClient.Endpoint.call(conn, @opts)
 
     assert conn.status == 422
   end
@@ -33,7 +33,7 @@ defmodule Web_Client.EndpointTest do
   test "it returns 404 when no route matches" do
     conn = conn(:get, "/fail")
 
-    conn = Web_Client.Endpoint.call(conn, @opts)
+    conn = WebClient.Endpoint.call(conn, @opts)
 
     assert conn.status == 404
   end

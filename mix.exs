@@ -13,13 +13,13 @@ defmodule TicTacToe.MixProject do
   end
 
   def escript do
-    [main_module: Text_Client.CLI]
+    [main_module: TextClient.CLI]
   end
 
   def application do
     [
       extra_applications: [:logger, :plug_cowboy],
-      mod: {Web_Client.Application, []}
+      mod: {WebClient.Application, []}
     ]
   end
 

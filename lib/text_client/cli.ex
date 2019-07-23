@@ -1,4 +1,4 @@
-defmodule Text_Client.CLI do
+defmodule TextClient.CLI do
   def main(args \\ []) do
     args |> parse_args |> process
   end
