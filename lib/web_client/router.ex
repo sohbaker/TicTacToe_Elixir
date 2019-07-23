@@ -2,6 +2,8 @@ defmodule Web_Client.Router do
   use Plug.Router
   alias Web_Client.API
 
+  plug Plug.Logger, log: :debug
+
   plug :match
   plug Plug.Parsers,
     parsers: [:json],
@@ -15,6 +17,12 @@ defmodule Web_Client.Router do
 
   get "/play" do
     API.Endpoint.show_game(conn)
+  end
+
+  post "/hello" do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, inspect conn)
   end
 
   match _ do

@@ -6,9 +6,7 @@ defmodule Web_Client.Application do
       Plug.Cowboy.child_spec(
         scheme: :http,
         plug: Web_Client.Router,
-        # plug: Web_Client.Endpoint,
-        options: [port: 3000]
-        # options: [port: Application.get_env(:tictactoe, :port)]
+        options: [port: Application.get_env(:tictactoe, :port)]
       )
     ]
 
