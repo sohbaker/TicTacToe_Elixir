@@ -1,11 +1,11 @@
-defmodule Web_Client.Application do
+defmodule WebClient.Application do
   use Application
 
   def start(_type, _args) do
     children = [
       Plug.Cowboy.child_spec(
         scheme: :http,
-        plug: Web_Client.Router,
+        plug: WebClient.Router,
         options: [port: Application.get_env(:tictactoe, :port)]
       )
     ]

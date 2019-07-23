@@ -1,4 +1,4 @@
-defmodule Web_Client.API.Endpoint do
+defmodule WebClient.API.Endpoint do
   import Plug.Conn
 
   def show_welcome(conn) do

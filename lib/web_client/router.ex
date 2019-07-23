@@ -1,6 +1,6 @@
-defmodule Web_Client.Router do
+defmodule WebClient.Router do
   use Plug.Router
-  alias Web_Client.API
+  alias WebClient.API
 
   plug Plug.Logger, log: :debug
 
