@@ -13,16 +13,15 @@ defmodule Game do
     if over?(game.board) do
       show_outcome(game.board)
     else
-      take_turn(game)
+      Display.show_board(game.board)
+      get_new_move(game.current_player, game.board)
+      |> take_turn(game)
       |> play()
     end
   end
 
-  defp take_turn(%Game{board: board, current_player: current} = game) do
-    Display.show_board(board)
-
-    get_new_move(current, board)
-    |> update_board(game)
+  defp take_turn(move, game) do
+    update_board(move, game)
     |> toggle_players()
   end
 
