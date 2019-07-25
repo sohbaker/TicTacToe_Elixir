@@ -11,10 +11,9 @@ defmodule Game do
 
   def play(game) do
     if over?(game.board) do
-      show_outcome(game.board)
+      Interact.show_outcome(game.board)
     else
-      Display.show_board(game.board)
-      get_new_move(game.current_player, game.board)
+      Interact.get_new_move(game.current_player, game.board)
       |> take_turn(game)
       |> play()
     end
@@ -25,24 +24,9 @@ defmodule Game do
     |> toggle_players()
   end
 
-  defp get_new_move(current, board) do
-    Player.get_move(current, board)
-    |> validate_move(current, board)
-  end
-
   defp update_board(move, %Game{board: board, current_player: current} = game) do
     new_board = Board.mark_board(board, move, current.mark)
     %Game{game | board: new_board}
-  end
-
-  defp validate_move(move, current, board) do
-    if Board.valid?(board, move) do
-      move
-    else
-      Display.notify_invalid()
-      |> Display.print_to_screen()
-      get_new_move(current, board)
-    end
   end
 
   defp toggle_players(%Game{current_player: current, other_player: other} = game) do
@@ -51,18 +35,5 @@ defmodule Game do
 
   defp over?(board) do
     Board.tie?(board) || Board.win?(board)
-  end
-
-  defp show_outcome(board) do
-    Display.show_board(board)
-    cond do
-      Board.win?(board) ->
-        Board.get_winning_mark(board)
-        |> Display.announce_win()
-        |> Display.print_to_screen()
-      Board.tie?(board) ->
-        Display.announce_tie()
-        |> Display.print_to_screen()
-    end
   end
 end
