@@ -19,7 +19,7 @@ defmodule Game do
     end
   end
 
-  defp take_turn(move, game) do
+  def take_turn(move, game) do
     update_board(move, game)
     |> toggle_players()
   end
