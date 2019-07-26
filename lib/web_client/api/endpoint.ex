@@ -8,7 +8,7 @@ defmodule WebClient.API.Endpoint do
   def show_game(conn) do
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Poison.encode!(game()))
+    |> send_resp(200, Poison.encode!(%{game: game()}))
   end
 
   defp game do
