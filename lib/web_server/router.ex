@@ -17,20 +17,25 @@ defmodule WebServer.Router do
   get "/play" do
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Poison.encode!(%{game: game()}))
+    |> send_resp(200, Poison.encode!(%{game: new_game()}))
   end
 
   post "/play" do
     {status, body} =
       case conn.params do
-        %{"game" => game, "move" => move} -> {200, update_game(game, move)}
+        %{"move" => move, "game" => game} -> {200, add_move(move, game)}
         _ -> {422, missing_data()}
       end
 
     send_resp(conn, status, body)
+    # %{"game" => conn.resp_body["game"]}
   end
 
-  defp update_game(game, move) do
+  defp new_game do
+    GameLoader.human_human()
+  end
+
+  defp add_move(move, game) do
     game = %Game{
       board: game["board"],
       current_player: %{
@@ -40,23 +45,23 @@ defmodule WebServer.Router do
         mark: game["other_player"]["mark"]
       }
     }
-    updated = Game.take_turn(String.to_integer(move), game)
-    Poison.encode!(%{game: updated})
+    validate_move(String.to_integer(move), game)
+  end
+
+  defp validate_move(move, game) do
+    if Board.valid?(game.board, move) && !Board.over?(game.board) do
+      updated_game = Game.take_turn(move, game)
+      Poison.encode!(%{game: updated_game})
+    else
+      Poison.encode!(%{game: game})
+    end
   end
 
   defp missing_data() do
-    Poison.encode!(%{response: "missing data"})
+    Poison.encode!(%{response: "Missing move data"})
   end
 
   match _ do
-    send_resp(conn, 404, "Page Missing")
-  end
-
-  defp game do
-    %Game{
-      current_player: %Human{},
-      other_player: %Computer{},
-      board: Board.grid()
-    }
+    send_resp(conn, 404, "Invalid URL")
   end
 end
