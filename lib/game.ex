@@ -19,7 +19,11 @@ defmodule Game do
     %Game{game | board: new_board}
   end
 
-  defp toggle_players(%Game{current_player: current, other_player: other} = game) do
-    %Game{game | current_player: other, other_player: current}
+  defp toggle_players(%Game{board: board, current_player: current, other_player: other} = game) do
+    if Board.over?(board) do
+      game
+    else
+      %Game{game | current_player: other, other_player: current}
+    end
   end
 end
