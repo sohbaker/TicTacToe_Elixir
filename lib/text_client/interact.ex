@@ -1,4 +1,14 @@
 defmodule Interact do
+  def play(game) do
+    if Board.over?(game.board) do
+      show_outcome(game.board)
+    else
+      get_new_move(game.current_player, game.board)
+      |> Game.take_turn(game)
+      |> play()
+    end
+  end
+
   def get_new_move(current_player, board) do
     Display.show_board(board)
     Player.get_move(current_player, board)
@@ -15,7 +25,7 @@ defmodule Interact do
     end
   end
 
-  defp show_outcome(board) do
+  def show_outcome(board) do
     Display.show_board(board)
     cond do
       Board.win?(board) ->
