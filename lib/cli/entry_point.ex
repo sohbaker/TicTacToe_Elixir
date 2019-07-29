@@ -1,18 +1,23 @@
 defmodule CLI.EntryPoint do
   def main(args \\ []) do
-    args |> parse_args |> process
+    args |> parse_args |> process |> start
   end
 
-  def process([]) do
+  defp process([]) do
     Display.print_to_screen("No arguments given")
   end
 
-  def process(options) do
+  defp process(options) do
     case options[:version] do
       "hh" -> GameLoader.human_human()
       "hc" -> GameLoader.human_computer()
       _ -> Display.print_to_screen("Invalid load argument")
     end
+  end
+
+  defp start(game) do
+    Display.print_to_screen(Display.greeting())
+    CLI.Interact.play(game)
   end
 
   defp parse_args(args) do
