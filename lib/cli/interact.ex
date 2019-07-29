@@ -1,4 +1,4 @@
-defmodule Interact do
+defmodule CLI.Interact do
   def play(game) do
     if Board.over?(game.board) do
       show_outcome(game.board)

@@ -1,4 +1,4 @@
-defmodule WebClient.Endpoint do
+defmodule WebServer.Endpoint do
   use Plug.Router
 
   plug(Plug.Logger, log: :debug)

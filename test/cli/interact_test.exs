@@ -1,6 +1,6 @@
-defmodule InteractTest do
+defmodule CLI.InteractTest do
   use ExUnit.Case
-  doctest Interact
+  doctest CLI.Interact
   import ExUnit.CaptureIO
 
   test "knows that player x wins the game" do
@@ -11,7 +11,7 @@ defmodule InteractTest do
     outcome =
       capture_io(input, fn ->
         Game.new(player_x, player_o)
-        |> Interact.play()
+        |> CLI.Interact.play()
       end)
 
     assert String.contains?(outcome, Display.announce_win(player_x.mark)) == true
@@ -25,7 +25,7 @@ defmodule InteractTest do
     outcome =
       capture_io(input, fn ->
         Game.new(player_x, player_o)
-        |> Interact.play()
+        |> CLI.Interact.play()
       end)
 
     assert String.contains?(outcome, Display.announce_win(player_o.mark)) == true
@@ -39,7 +39,7 @@ defmodule InteractTest do
     outcome =
       capture_io(input, fn ->
         Game.new(player_x, player_o)
-        |> Interact.play()
+        |> CLI.Interact.play()
       end)
 
     assert String.contains?(outcome, Display.announce_tie()) == true

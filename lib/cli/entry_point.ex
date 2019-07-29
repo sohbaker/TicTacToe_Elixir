@@ -1,4 +1,4 @@
-defmodule TextClient.CLI do
+defmodule CLI.EntryPoint do
   def main(args \\ []) do
     args |> parse_args |> process
   end

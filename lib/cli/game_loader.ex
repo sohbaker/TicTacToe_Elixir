@@ -6,7 +6,7 @@ defmodule GameLoader do
     Display.greeting()
 
     Game.new(player_x, player_o)
-    |> Interact.play()
+    |> CLI.Interact.play()
   end
 
   def human_computer do
@@ -16,6 +16,6 @@ defmodule GameLoader do
     Display.greeting()
 
     Game.new(player_x, player_o)
-    |> Interact.play()
+    |> CLI.Interact.play()
   end
 end
