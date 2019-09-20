@@ -1,4 +1,4 @@
-defmodule Tictactoe.MixProject do
+defmodule TicTacToe.MixProject do
   use Mix.Project
 
   def project do
@@ -13,22 +13,20 @@ defmodule Tictactoe.MixProject do
   end
 
   def escript do
-    [main_module: TicTacToe.CLI]
+    [main_module: CLI.EntryPoint]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :plug_cowboy]
+      extra_applications: [:logger, :plug_cowboy],
+      mod: {WebServer.Application, []}
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:plug_cowboy, "~> 2.1.0"},
       {:poison, "~> 3.1"}
-
     ]
   end
 end

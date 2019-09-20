@@ -3,45 +3,18 @@ defmodule GameTest do
   doctest Game
   import ExUnit.CaptureIO
 
-  test "knows that player x wins the game" do
+  test "updates the board and players when a turn is taken" do
     player_x = %Human{}
     player_o = %Human{mark: "O"}
-    input = "1\n4\n2\n5\n3\n"
+    board = Board.grid()
+    move = 1
 
-    outcome =
-      capture_io(input, fn ->
-        Game.new(player_x, player_o)
-        |> Game.play()
-      end)
+    game = Game.new(player_x, player_o)
 
-    assert String.contains?(outcome, Display.announce_win(player_x.mark)) == true
-  end
+    outcome = Game.take_turn(move, game)
 
-  test "knows that player o wins the game" do
-    player_x = %Human{}
-    player_o = %Human{mark: "O"}
-    input = "1\n4\n7\n5\n8\n6\n"
-
-    outcome =
-      capture_io(input, fn ->
-        Game.new(player_x, player_o)
-        |> Game.play()
-      end)
-
-    assert String.contains?(outcome, Display.announce_win(player_o.mark)) == true
-  end
-
-  test "knows that the game has ended in a tie" do
-    player_x = %Human{}
-    player_o = %Human{mark: "O"}
-    input = "1\n3\n2\n4\n6\n5\n7\n9\n8\n"
-
-    outcome =
-      capture_io(input, fn ->
-        Game.new(player_x, player_o)
-        |> Game.play()
-      end)
-
-    assert String.contains?(outcome, Display.announce_tie()) == true
+    assert outcome.current_player == player_o
+    assert outcome.other_player == player_x
+    assert Enum.member?(outcome.board, player_x.mark) == true
   end
 end

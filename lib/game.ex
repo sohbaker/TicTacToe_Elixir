@@ -9,26 +9,9 @@ defmodule Game do
     }
   end
 
-  def play(game) do
-    if over?(game.board) do
-      show_outcome(game.board)
-    else
-      take_turn(game)
-      |> play()
-    end
-  end
-
-  defp take_turn(%Game{board: board, current_player: current} = game) do
-    Display.show_board(board)
-
-    get_new_move(current, board)
-    |> update_board(game)
+  def take_turn(move, game) do
+    update_board(move, game)
     |> toggle_players()
-  end
-
-  defp get_new_move(current, board) do
-    Player.get_move(current, board)
-    |> validate_move(current, board)
   end
 
   defp update_board(move, %Game{board: board, current_player: current} = game) do
@@ -36,34 +19,11 @@ defmodule Game do
     %Game{game | board: new_board}
   end
 
-  defp validate_move(move, current, board) do
-    if Board.valid?(board, move) do
-      move
+  defp toggle_players(%Game{board: board, current_player: current, other_player: other} = game) do
+    if Board.over?(board) do
+      game
     else
-      Display.notify_invalid()
-      |> Display.print_to_screen()
-      get_new_move(current, board)
-    end
-  end
-
-  defp toggle_players(%Game{current_player: current, other_player: other} = game) do
-    %Game{game | current_player: other, other_player: current}
-  end
-
-  defp over?(board) do
-    Board.tie?(board) || Board.win?(board)
-  end
-
-  defp show_outcome(board) do
-    Display.show_board(board)
-    cond do
-      Board.win?(board) ->
-        Board.get_winning_mark(board)
-        |> Display.announce_win()
-        |> Display.print_to_screen()
-      Board.tie?(board) ->
-        Display.announce_tie()
-        |> Display.print_to_screen()
+      %Game{game | current_player: other, other_player: current}
     end
   end
 end

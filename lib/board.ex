@@ -20,6 +20,10 @@ defmodule Board do
       valid_digit?(board, position)
   end
 
+  def over?(board) do
+    tie?(board) || win?(board)
+  end
+
   def full?(board) do
     Enum.all?(board, fn x -> x == @naught || x == @cross end)
   end
